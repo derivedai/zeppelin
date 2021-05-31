@@ -299,8 +299,13 @@ public class K8sRemoteInterpreterProcess extends RemoteInterpreterManagedProcess
       int webUiPort = 4040;
       k8sProperties.put("zeppelin.k8s.spark.container.image", sparkImage);
       if (isSparkOnKubernetes(properties)) {
+        String sparkSubmitOptions = getEnv().getOrDefault("SPARK_SUBMIT_OPTIONS", "");
+        String SPARK_JARS = getEnv().getOrDefault("SPARK_JARS", "");
+        if(!SPARK_JARS.contentEquals("")) {
+          sparkSubmitOptions += " --jars " + SPARK_JARS + " ";
+        }
         k8sEnv.put("SPARK_SUBMIT_OPTIONS",
-            getEnv().getOrDefault("SPARK_SUBMIT_OPTIONS", "") + buildSparkSubmitOptions(userName));
+            sparkSubmitOptions + buildSparkSubmitOptions(userName));
       }
       k8sEnv.put("SPARK_HOME", getEnv().getOrDefault("SPARK_HOME", "/spark"));
 
