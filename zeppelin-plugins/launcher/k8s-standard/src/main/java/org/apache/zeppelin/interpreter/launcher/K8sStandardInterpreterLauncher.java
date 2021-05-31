@@ -159,14 +159,14 @@ public class K8sStandardInterpreterLauncher extends InterpreterLauncher {
     Map<String, String> env = new HashMap<>();
     for (Object key : context.getProperties().keySet()) {
       if (RemoteInterpreterUtils.isEnvString((String) key)) {
-        logger.info("interpreter setting:" + key);
+        LOGGER.info("interpreter setting: " + key);
         env.put((String) key, context.getProperties().getProperty((String) key));
         if(((String) key).toLowerCase().contentEquals("spark.jars")){
           StringBuilder jarList = new StringBuilder();
           jarList.append(" --jars ");
           jarList.append(context.getProperties().getProperty((String) key));
           jarList.append(" ");
-          logger.info("Adding jars: " + jarList.toString());
+          LOGGER.info("Adding jars: " + jarList.toString());
           env.put("SPARK_SUBMIT_OPTIONS", jarList.toString());
         }
       }
