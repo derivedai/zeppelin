@@ -160,6 +160,14 @@ public class K8sStandardInterpreterLauncher extends InterpreterLauncher {
     for (Object key : context.getProperties().keySet()) {
       if (RemoteInterpreterUtils.isEnvString((String) key)) {
         env.put((String) key, context.getProperties().getProperty((String) key));
+        if(((String) key).toLowerCase().contentEquals("spark.jars")){
+          StringBuilder jarList = new StringBuilder();
+          jarList.append(" --jars ");
+          jarList.append(context.getProperties().getProperty((String) key));
+          jarList.append(" ");
+          logger.info("Adding jars: " + jarList.toString());
+          env.put("SPARK_SUBMIT_OPTIONS", jarList.toString());
+        }
       }
       // TODO(zjffdu) move this to FlinkInterpreterLauncher
       if (key.toString().equals("FLINK_HOME")) {
