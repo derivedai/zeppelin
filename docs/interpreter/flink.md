@@ -106,17 +106,17 @@ You can also add and set other flink properties which are not listed in the tabl
     <td>Port of running JobManager. Only used for remote mode</td>
   </tr>
   <tr>
-    <td>flink.jm.memory</td>
-    <td>1024</td>
-    <td>Total number of memory(mb) of JobManager</td>
+    <td>jobmanager.memory.process.size</td>
+    <td>1024m</td>
+    <td>Total number of memory of JobManager, e.g. 1024m. It is official [flink property](https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/deployment/config/)</td>
   </tr>
   <tr>
-    <td>flink.tm.memory</td>
-    <td>1024</td>
-    <td>Total number of memory(mb) of TaskManager</td>
+    <td>taskmanager.memory.process.size</td>
+    <td>1024m</td>
+    <td>Total number of memory of TaskManager, e.g. 1024m. It is official [flink property](https://ci.apache.org/projects/flink/flink-docs-release-1.13/docs/deployment/config/)</td>
   </tr>
   <tr>
-    <td>flink.tm.slot</td>
+    <td>taskmanager.numberOfTaskSlots</td>
     <td>1</td>
     <td>Number of slot per TaskManager</td>
   </tr>
@@ -126,12 +126,12 @@ You can also add and set other flink properties which are not listed in the tabl
     <td>Total number of TaskManagers in local mode</td>
   </tr>
   <tr>
-    <td>flink.yarn.appName</td>
+    <td>yarn.application.name</td>
     <td>Zeppelin Flink Session</td>
     <td>Yarn app name</td>
   </tr>
   <tr>
-    <td>flink.yarn.queue</td>
+    <td>yarn.application.queue</td>
     <td>default</td>
     <td>queue name of yarn app</td>
   </tr>
@@ -145,6 +145,11 @@ You can also add and set other flink properties which are not listed in the tabl
     <td></td>
     <td>Set this value only when your yarn address is mapped to some other address, e.g. some cloud vender will map `http://resource-manager:8088` to `https://xxx-yarn.yy.cn/gateway/kkk/yarn`</td>
   </tr>
+  <tr>
+    <td>zeppelin.flink.run.asLoginUser</td>
+    <td>true</td>
+    <td>Whether run flink job as the zeppelin login user, it is only applied when running flink job in hadoop yarn cluster and shiro is enabled</td>
+  </tr> 
   <tr>
     <td>flink.udf.jars</td>
     <td></td>
